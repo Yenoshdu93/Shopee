@@ -50,7 +50,7 @@ const Header = () => {
   const navigation = useNavigate();
   const cart = useSelector((state) => state.cart.cart);
   return (
-    <div className="sticky top-0 h-[5.5rem] w-full bg-[#ffffff] border-b z-50">
+    <div className=" h-[5.5rem] w-full bg-[#ffffff] border-b z-50">
       <div className="h-full w-full px-6 flex items-center justify-between">
         {/* left */}
         <div className="h-full flex items-center gap-[1rem]">
@@ -60,7 +60,7 @@ const Header = () => {
           <Link className="text-2xl font-medium text-gray-500" to="/">
             Shopee
           </Link>
-          <div className="hidden md:flex items-center   h-full">
+          <div className="hidden xl:flex items-center   h-full">
             <button className="link relative hover:border-b-red-500 group">
               <p>MEN</p>
               <div className=" absolute hidden group-hover:block  bg-white h-[60vh] w-[80vw]  top-[5.5rem] shadow-sm ">

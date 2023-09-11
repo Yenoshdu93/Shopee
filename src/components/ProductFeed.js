@@ -12,21 +12,21 @@ const ProductFeed = ({ items }) => {
   return (
     <div className="h-full w-full">
       <div className="my-2">
-        <h1 className="text-5xl text-[#e14e4f] text-center p-4 uppercase">
+        <h1 className="sm:text-2xl lg:text-5xl text-[#e14e4f] text-center p-4 uppercase">
           Cupouns Corner
         </h1>
-        <div className="w-full h-[20vh] flex px-10 gap-2">
+        <div className="w-full sm:flex sm:flex-col lg:flex  px-10 gap-2">
           <div
-            className="flex flex-col items-start bg-[#e14e4f] w-full px-10  py-2 cursor-pointer rounded-md text-white
+            className="sm:text- flex flex-col items-start bg-[#e14e4f] w-full px-10  py-2 cursor-pointer rounded-md text-white
           "
           >
             <p className="text-xl">Flat</p>
-            <p className="text-3xl">100 OFF </p>
+            <p className="sm:2xl lg:text-3xl">100 OFF </p>
             <p className="text-3xl">ON ALL PRODUCTS</p>
           </div>
           <div className="flex flex-col items-start bg-[#e14e4f] w-full  px-10  py-2 cursor-pointer rounded-md text-white">
             <p className="text-xl">Flat</p>
-            <p className="text-3xl">100 OFF </p>
+            <p className="sm:text-2xl lg:text-3xl">100 OFF </p>
             <p className="text-3xl">ON ALL PRODUCTS</p>
           </div>
         </div>
@@ -35,7 +35,7 @@ const ProductFeed = ({ items }) => {
         </div>
       </div>
       {/* ProductsFeed */}
-      <div className="grid grid-flow-row-dense lg:grid-cols-6">
+      <div className="grid grid-flow-row-dense sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {item?.map((item) => {
           return (
             <Product

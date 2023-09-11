@@ -21,7 +21,7 @@ const CartItem = ({
 
   return (
     <div className="w-full h-full ">
-      <div className="w-full h-full grid grid-cols-5 items-center border px-10 py-4">
+      <div className="w-full h-full sm:flex sm:flex-col lg:grid lg:grid-cols-5 items-center border px-10 py-4">
         <div className="w-[8rem] h-[11rem]">
           <img className="w-full h-full" src={image} alt="img" />
         </div>

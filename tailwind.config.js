@@ -3,20 +3,21 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
-      sm: "720px",
+      sm: "570px",
       // => @media (min-width: 640px) { ... }
 
-      md: "860px",
+      md: "740px",
       // => @media (min-width: 768px) { ... }
 
-      lg: "1024px",
+      lg: "924px",
       // => @media (min-width: 1024px) { ... }
 
-      xl: "1280px",
+      xl: "1020px",
       // => @media (min-width: 1280px) { ... }
 
-      "2xl": "1536px",
+      "2xl": "1246px",
       // => @media (min-width: 1536px) { ... }
+      "2xl": "1546px",
     },
     extend: {
       fontFamily: {
