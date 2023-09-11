@@ -9,7 +9,6 @@ const Home = () => {
       const res = await fetch("https://fakestoreapi.com/products");
       const product = await res.json();
       setItems(product);
-      console.log(product);
     };
     fetchdata();
   });

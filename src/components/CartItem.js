@@ -28,7 +28,7 @@ const CartItem = ({
         <div className=" col-span-2 space-y-4 ">
           <p className="text-sm font-semibold tracking-wide">{title}</p>
           <p className="text-xs text-gray-600 tracking-wider">{description}</p>
-          <p className="font-bold">Rs. {price}</p>
+          <p className="font-bold">Rs. {(price * quantity).toFixed(2)}</p>
           <div
             className="border
           w-[10rem] h-10 flex items-center justify-evenly "

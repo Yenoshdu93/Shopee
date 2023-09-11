@@ -2,9 +2,51 @@ import { Link } from "react-router-dom";
 import { BsSearch, BsHandbag } from "react-icons/bs";
 import { AiOutlineUser, AiOutlineHeart, AiOutlineMenu } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+} from "firebase/auth";
+import { addUser, removeUser } from "../app/cartSlice";
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+  const userDetails = useSelector((state) => state.cart.userDetails);
+  const dispatch = useDispatch();
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  const handleGoogleAuth = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        dispatch(
+          addUser({
+            _id: user.uid,
+            name: user.displayName,
+            email: user.email,
+            image: user.photoURL,
+          })
+        );
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const hadleSignOUt = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("success");
+        dispatch(removeUser());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const navigation = useNavigate();
   const cart = useSelector((state) => state.cart.cart);
   return (
@@ -127,25 +169,66 @@ const Header = () => {
             />
           </div>
           <div className="flex items-center gap-6 ">
-            <div className="relative cursor-pointer flex flex-col items-center justify-center border-b-transparent border-b-4 px-2 rounded-sm hover:border-b-red-500 py-5 group">
-              <AiOutlineUser className="text-2xl " />
-              <p className="text-xs font-medium">Profile</p>
-              <div className="hidden group-hover:block absolute h-[60vh] w-[20vw] bg-white rounded-md top-[5.5rem] px-4 py-2">
-                <div className="flex flex-col space-y-4 ">
-                  <p className="text-sm font-semibold">Welcome</p>
-                  <span className="block  text-xs text-gray-400">
-                    Access your account and manage your orders
-                  </span>
-                  <button
-                    onClick={() => navigation("/login")}
-                    className=" text-pink-500 py-2 border border-pink-500  active:ring-2 active:ring-pink-500"
-                  >
-                    Login / Sign Up
-                  </button>
-                  <span className="border-b"></span>
+            {userDetails ? (
+              <div className="relative cursor-pointer  mt-[-1rem]">
+                <div
+                  onClick={() => setShow(!show)}
+                  className="h-[2rem] w-[2rem] rounded-full"
+                >
+                  <img
+                    className="w-full h-full rounded-full"
+                    src={userDetails.image}
+                    alt=""
+                  />
+                  <p className="text-xs font-bold ml-[-0.5rem]">
+                    {userDetails.name.substring(0, 6)}
+                  </p>
+                </div>
+                {show ? (
+                  <div className="absolute bg-white w-[10rem] h-[5rem] right-10 top-[2rem] rounded-md flex items-center justify-center p-2">
+                    <button
+                      onClick={hadleSignOUt}
+                      className="cursor-pointer border px-4 py-2 rounded-md text-white  bg-black"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <div className="relative cursor-pointer flex flex-col items-center justify-center border-b-transparent border-b-4 px-2 rounded-sm hover:border-b-red-500 py-5 group">
+                <AiOutlineUser className="text-2xl " />
+                <p className="text-xs font-medium">Profile</p>
+                <div className="hidden group-hover:block group-transition-all absolute h-[60vh] w-[20vw] bg-white rounded-md top-[5.5rem] px-4 py-2">
+                  <div className="flex flex-col space-y-4">
+                    <p className="text-sm font-semibold">Welcome</p>
+                    <span className="block  text-xs text-gray-400">
+                      Access your account and manage your orders
+                    </span>
+                    <button
+                      onClick={() => navigation("/login")}
+                      className=" text-pink-500 py-2 border border-pink-500  active:ring-2 active:ring-pink-500"
+                    >
+                      Login / Sign Up
+                    </button>
+                    <button
+                      onClick={handleGoogleAuth}
+                      className="flex items-center border px-2 py-1 gap-4 active:ring-1 active:ring-blue-500"
+                    >
+                      <img
+                        src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"
+                        width={40}
+                        alt=""
+                      />
+                      <p className="text-sm text-gray-600">
+                        Continue With Google
+                      </p>
+                    </button>
+                    <span className="border-b"></span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="cursor-pointer flex flex-col items-center justify-center">
               <AiOutlineHeart className="text-2xl" />
               <p className="text-xs font-medium">Whishlist</p>

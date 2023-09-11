@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const cart = useSelector((state) => state.cart.cart);
   const navigation = useNavigate();
+  const userDetails = useSelector((state) => state.cart.userDetails);
 
   const getTotal = () => {
     let totalQuantity = 0;
@@ -15,6 +16,7 @@ const Cart = () => {
     });
     return { totalPrice, totalQuantity };
   };
+
   return (
     <div className="min-h-[100vh] w-full ">
       <h1 className="py-4 px-10 border-b text-4xl tracking-tighest">
@@ -50,9 +52,18 @@ const Cart = () => {
               </p>
             </div>
             <div className="self-center ">
-              <button className="border px-10 py-2 bg-violet-400 text-white rounded-md">
-                Proceed to Pay
-              </button>
+              {userDetails ? (
+                <button className="border px-10 py-2 bg-violet-400 text-white rounded-md">
+                  Proceed to Pay
+                </button>
+              ) : (
+                <button
+                  disabled
+                  className="border px-10 py-2 bg-violet-500 opacity-60 text-white rounded-md"
+                >
+                  Login to Checkout
+                </button>
+              )}
             </div>
           </div>
         </div>
